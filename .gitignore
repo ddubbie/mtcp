@@ -56,6 +56,11 @@ stamp-h1
 *.su
 *.idb
 *.pdb
+*.Po
+*.lai
+*.Plo
+*.swp
+*.swo
 
 # Kernel Module Compile Results
 *.mod*

@@ -681,17 +681,16 @@ AC_SUBST(LIBPSIO_LIBS)
 
 AC_MSG_CHECKING(for dpdk support)
 AC_ARG_WITH(libdpdk,
-    AC_HELP_STRING([--with-libdpdk@<:@=PATH@:>@],[Include libdpdk support in PATH/include and PATH/lib]),
-    [WITH_LIBDPDK=$withval],[WITH_LIBDPDK=no])
+    AC_HELP_STRING([--with-libdpdk],[Include libdpdk support using pkg-config]),
+    [WITH_LIBDPDK=yes],[WITH_LIBDPDK=no])
 
 LIBDPDK_CFLAGS=""
 LIBDPDK_LIBS=""
 
 if test "$WITH_LIBDPDK" != "no"; then
-#	DPDK_MACHINE_FLAGS=`cat $WITH_LIBDPDK/include/cflags.txt`
-#	LIBDPDK_CFLAGS="$DPDK_MACHINE_FLAGS -I$WITH_LIBDPDK/include/"
-	LIBDPDK_LDFLAGS=`cat $WITH_LIBDPDK/lib/ldflags.txt`
-	LIBDPDK_LIBS="-L$WITH_LIBDPDK/lib/ -m64 -g -O3 -pthread -lrt -march=native -Wl,-export-dynamic -Wl,-lnuma -Wl,-lpthread -Wl,-lrt -Wl,-ldl -Wl,$LIBDPDK_LDFLAGS"
+	#LIBDPDK_LDFLAGS=`cat $WITH_LIBDPDK/lib/ldflags.txt`
+	LIBDPDK_LDFLAGS=`pkg-config libdpdk --libs`
+	LIBDPDK_LIBS="-m64 -g -O3 -pthread -lrt -march=native -Wl,-export-dynamic -Wl,-lnuma -Wl,-lpthread -Wl,-lrt -Wl,-ldl -Wl,$LIBDPDK_LDFLAGS"
 	CFLAGS="${CFLAGS} ${LIBDPDK_CFLAGS}"
 	AC_DEFINE([HAVE_LIBDPDK], [1], [libdpdk support])
 	AC_MSG_RESULT(yes)

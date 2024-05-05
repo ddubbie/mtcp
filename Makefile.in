@@ -96,8 +96,8 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = mtcp/src/Makefile apps/example/Makefile \
-	apps/perf/Makefile util/Makefile io_engine/lib/Makefile
+CONFIG_CLEAN_FILES = mtcp/src/Makefile util/Makefile \
+	io_engine/lib/Makefile
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -157,8 +157,6 @@ CTAGS = ctags
 CSCOPE = cscope
 DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(top_srcdir)/apps/example/Makefile.in \
-	$(top_srcdir)/apps/perf/Makefile.in \
 	$(top_srcdir)/io_engine/lib/Makefile.in \
 	$(top_srcdir)/mtcp/src/Makefile.in \
 	$(top_srcdir)/util/Makefile.in README compile config.guess \
@@ -223,12 +221,12 @@ CYGPATH_W = @CYGPATH_W@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 DPDK = @DPDK@
-DPDKLIBPATH = @DPDKLIBPATH@
+DPDK_CFLAGS = @DPDK_CFLAGS@
+DPDK_LIBS = @DPDK_LIBS@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
-ENFORCE_RX_IDLE = @ENFORCE_RX_IDLE@
 EXEEXT = @EXEEXT@
 GREP = @GREP@
 HWCSUM = @HWCSUM@
@@ -240,7 +238,6 @@ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
-LRO = @LRO@
 LTLIBOBJS = @LTLIBOBJS@
 MAKEINFO = @MAKEINFO@
 MKDIR_P = @MKDIR_P@
@@ -256,10 +253,12 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+PKG_CONFIG = @PKG_CONFIG@
+PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
+PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
 PSIO = @PSIO@
 PSLIBPATH = @PSLIBPATH@
 RANLIB = @RANLIB@
-RX_IDLE_THRESH = @RX_IDLE_THRESH@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
@@ -308,7 +307,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
-SUBDIRS = mtcp/src util io_engine/lib apps/example
+SUBDIRS = mtcp/src util io_engine/lib 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -362,10 +361,6 @@ $(srcdir)/config.h.in:  $(am__configure_deps)
 distclean-hdr:
 	-rm -f config.h stamp-h1
 mtcp/src/Makefile: $(top_builddir)/config.status $(top_srcdir)/mtcp/src/Makefile.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
-apps/example/Makefile: $(top_builddir)/config.status $(top_srcdir)/apps/example/Makefile.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
-apps/perf/Makefile: $(top_builddir)/config.status $(top_srcdir)/apps/perf/Makefile.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 util/Makefile: $(top_builddir)/config.status $(top_srcdir)/util/Makefile.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
